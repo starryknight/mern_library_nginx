@@ -1,4 +1,5 @@
 version: "3.9"
+# eval $(egrep -v '^#' ./db/.env | xargs) docker-compose config
 services:
     library-api:
         restart: always
@@ -19,18 +20,18 @@ services:
         networks: 
             - library-mern-api
 
-mongodb:
-    image: mongo
-    restart: always
-    ports:
-        - 27017:27017
-    environment:
-        MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
-        MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
-    volumes:
-        - mongodb-data:/data/db
-    networks: 
-        - library-mern-api
+    mongodb:
+        image: mongo
+        restart: always
+        ports:
+            - 27017:27017
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+        volumes:
+            - mongodb-data:/data/db
+        networks: 
+            - library-mern-api
 
     mongo-express:
         image: mongo-express
@@ -50,7 +51,7 @@ mongodb:
             - library-mern-api
 
 networks: 
-    - library-mern-api:
+    library-mern-api:
         driver: bridge
 
 volumes:
